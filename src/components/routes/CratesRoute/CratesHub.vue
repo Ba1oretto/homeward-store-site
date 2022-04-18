@@ -16,7 +16,7 @@ export default {
 
 <script setup>
 import {ref} from "vue";
-import sendRoutePath from "../../../hooks/sendRoutePath.js";
+import sendRoutePath from "../../../hook/sendRoutePath.js";
 import axios from "axios";
 
 const crates = ref('')

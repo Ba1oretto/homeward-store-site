@@ -14,14 +14,14 @@ export default {
 
 <script setup>
 import {ref} from "vue";
-import clickCopyHook from "../../../hooks/clickCopyHook.js";
+import {copy} from "../../../hook/clipboard.js";
 
 let timer
 let opacity = ref('opacity-0')
 
 function copyIpAddress() {
 
-  clickCopyHook('.tooltips')
+  copy('.tooltips')
 
   clearTimeout(timer)
   opacity.value = 'opacity-1'
@@ -30,7 +30,3 @@ function copyIpAddress() {
   }, 2000)
 }
 </script>
-
-<style scoped>
-
-</style>

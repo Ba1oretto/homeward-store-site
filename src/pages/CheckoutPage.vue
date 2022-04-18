@@ -9,7 +9,7 @@
 
 <script setup>
 import {getCurrentInstance, onBeforeUnmount, onMounted, ref} from "vue";
-import sendRoutePath from "../hooks/sendRoutePath.js";
+import sendRoutePath from "../hook/sendRoutePath.js";
 
 let BUS = getCurrentInstance().appContext.config.globalProperties.$bus
 

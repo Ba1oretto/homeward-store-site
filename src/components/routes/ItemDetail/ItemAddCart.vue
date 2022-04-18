@@ -25,7 +25,7 @@ export default {
 <script setup>
 import {getCurrentInstance, onMounted, reactive, ref, toRef, watch} from "vue";
 import pubsub from "pubsub-js";
-import setCurrentToastComponent from "../../../hooks/setToastComponent.js";
+import setCurrentToastComponent from "../../../hook/setToastComponent.js";
 
 let ctx = getCurrentInstance()
 let data = defineProps(['item']);

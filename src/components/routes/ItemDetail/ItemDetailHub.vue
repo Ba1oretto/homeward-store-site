@@ -23,7 +23,7 @@ export default {
 <script setup>
 import {useRoute} from "vue-router";
 import {getCurrentInstance, onUpdated, ref} from "vue";
-import sendRoutePath from "../../../hooks/sendRoutePath.js";
+import sendRoutePath from "../../../hook/sendRoutePath.js";
 
 let http = getCurrentInstance().appContext.config.globalProperties.$http;
 let route = useRoute()

@@ -44,7 +44,7 @@
 import SearchUtil from "../../util/SearchUtil.vue";
 import {getCurrentInstance, onBeforeMount, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
-import sendRoutePath from "../../../hooks/sendRoutePath.js";
+import sendRoutePath from "../../../hook/sendRoutePath.js";
 
 export default {
   name: "ExtrasRoute",

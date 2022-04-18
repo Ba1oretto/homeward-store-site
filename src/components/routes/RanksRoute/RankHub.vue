@@ -16,7 +16,7 @@ export default {
 </script>
 
 <script setup>
-import sendRoutePath from "../../../hooks/sendRoutePath.js";
+import sendRoutePath from "../../../hook/sendRoutePath.js";
 
 sendRoutePath()
 </script>

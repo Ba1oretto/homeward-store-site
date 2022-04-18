@@ -76,7 +76,7 @@ import {reactive} from "vue";
 import {getCurrentInstance} from "vue";
 import {watch} from "vue";
 import {useRouter} from "vue-router";
-import setCurrentToastComponent from "../../../hooks/setToastComponent.js";
+import setCurrentToastComponent from "../../../hook/setToastComponent.js";
 import {onMounted} from "vue";
 import {ref} from "vue";
 
