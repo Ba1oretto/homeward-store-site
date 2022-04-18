@@ -1,74 +1,114 @@
+const plugin = require("tailwindcss/plugin");
 module.exports = {
   content: [
+    "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
+    container: {
+      padding: {
+        DEFAULT: '15px',
+      }
+    },
     screens: {
       sm: '640px',
       md: '768px',
+      'max-md': {'max': '768px'},
       lg: '992px',
-      xl: '1100px',
-      mdm: {'max': '768px'}
+      sl: '1025px',
+      xl: '1100px'
     },
     extend: {
       spacing: {
-        '88': '22rem',
-        '100': '100px',
-        '110': '110px',
-        '128': '32rem',
-        '144': '36rem'
+        'discord': '350px',
+        'img': '600px'
       },
-      gridTemplateRows: {
-        'body': 'auto 1fr auto'
+      letterSpacing: {
+        '0.15': '.15rem',
+        '0.2': '.2rem',
+        '0.35': '.35em',
       },
       colors: {
-        btn: {
-          text: '#97438f'
+        pink: {
+          '600': '#e672bb'
         },
-        black: {
-          '80': '#000c'
+        yellow: {
+          '400': '#fac000',
+          '500': '#eaa21a',
+          '600': '#d68512',
+          '900': '#87522b'
+        },
+        red: {
+          '500': '#ff4343',
+          '600': '#ff1313'
         },
         gray: {
           '500': '#b3b7bc',
-          '750': '#1d2021',
+          '600': '#7b7f85',
           '800': '#181a1b',
           '900': '#0d0e0f'
         },
-        yellow: {
-          '400': '#fac021',
-          '800': '#92400e',
+        btn: {
+          'text': '#97438f',
+          'discord-t': '#5662ab'
         },
-        custom: {
-          '300': '#fac021',
+        nav: {
+          home: '#f18725',
+          blog: '#22afdc',
+          help: '#20b966',
+        },
+        lighten: 'hsla(0,0%,100%,0.3)',
+        ip: {
           '400': '#ffe7c2',
-          '500': '#3642a9',
-          '600': '#5763c7',
-          '700': '#f4b174',
+          '700': '#edc30a',
           '800': '#bf6936',
-          '900': '#dc8a16',
-          '1000': '#a35710',
-          '1100': '#ab5828',
-          '1200': '#181a1b'
+          '900': '#ab5828',
+          '1000': '#824610'
         },
-        navigator: {
-          home: '#22afdc',
-          blog: '#20b966',
-          help: '#f18725',
-        },
-        light: '#ffffff1a',
-        lighten: '#ffffff4d',
+        discord: {
+          '800': '#5763c7',
+          '900': '#3642a9'
+        }
       },
-      boxShadow: {
-        'btn': '#d07fbe 0 5px 0'
+      margin: {
+        '27.5': '110px',
+      },
+      gridTemplateRows: {
+        'body': 'auto 1fr auto',
+        'video': 'auto 1fr'
+      },
+      gridTemplateColumns: {
+        'staff': '1fr minmax(300px,460px)'
       },
       backgroundColor: {
-        'btn': '#ffb0e2'
+        btn: {
+          DEFAULT: '#ffb0e2',
+          'discord': '#c1caff'
+        }
       },
-      textColor: {
-        'black': '#000000',
-        'white': '#ffffff',
+      boxShadow: {
+        'btn': '#d07fbe 0 5px 0',
+        'border': 'hsla(0,0%,100%,0.4) 0 0 0 1px inset',
+        'ip': '#a25223 0 3px 0',
+        'ip-count':'#bf6936 0 3px 0',
+        'discord': '#808bcb 0 5px 0',
+        'pink': 'rgba(235,75,229,0.45) 0 0 30px',
+        'purple-inner': 'rgba(235,75,229,0.8) 0 0 0 1px inset'
+      },
+      animation: {
+        'track': 'track 2s ease infinite'
+      },
+      keyframes: {
+        'track': {
+          '0%': { letterSpacing: 0 },
+          '50%': { letterSpacing: 3 },
+          '100%': { letterSpacing: 0 },
+        }
       }
-    }
-  }
+    },
+  },
+  plugins: [
+    plugin(function({ addVariant }) {
+    })
+  ],
 }
