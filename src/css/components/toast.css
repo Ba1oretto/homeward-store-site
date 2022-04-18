@@ -1,0 +1,7 @@
+.toasts {
+    z-index: 9999999;
+}
+.toasts {
+    max-width: 400px;
+    width: 100%;
+}

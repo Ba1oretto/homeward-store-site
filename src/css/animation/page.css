@@ -1,0 +1,15 @@
+.page-enter-active, .page-leave-active {
+    transition: all .2s ease-in-out
+}
+
+.page-enter, .page-leave-to {
+    pointer-events: none;
+    opacity: 0
+}
+
+.page-enter.page-footer, .page-leave-to.page-footer {
+    position: absolute;
+    bottom: -500px;
+    left: 0;
+    right: 0
+}
