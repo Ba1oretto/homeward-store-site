@@ -8,8 +8,8 @@
     </div>
     <div @click="sidebarShown = true" class="popout">
       <div class="item cursor-pointer bg-yellow-350 border border-lighten lg:w-16 h-16 box-content flex items-center justify-center relative group lg:mb-3 transition-all ease-in-out duration-500" data-item="user">
-        <div class="tooltip right-0 mr-20 opacity-0 absolute transition-opacity duration-150 ease-in-out group-hover:opacity-100">{{ playerInformation.name }}</div>
-        <img :src="playerInformation.avatar" loading="lazy" :alt="playerInformation.name" class="w-8 h-8 block">
+        <div class="tooltip right-0 mr-20 opacity-0 absolute transition-opacity duration-150 ease-in-out group-hover:opacity-100">{{ username }}</div>
+        <img :src="avatarSrc" loading="lazy" :alt="username" class="w-8 h-8 block">
       </div>
       <div class="item cursor-pointer bg-red-600 border border-lighten lg:w-16 h-16 box-content flex items-center justify-center relative group lg:mb-3 transition-all ease-in-out duration-500 delay-100 disabled" data-item="cart">
         <div class="icon">
@@ -26,21 +26,27 @@
     </div>
     <div class="main-content pt-12 lg:pt-0">
       <div class="item-user">
-        <div>
-          <div class="flex items-center font-bold text-lg bg-gray-800 pt-5 px-6">
-            <img src="https://visage.surgeplay.com/bust/64/c06f89064c8a49119c29ea1dbd1aab82" alt="Guest Minecraft Skin">
-            <div class="ml-5">
-              <div class="label text-xs uppercase tracking-widest leading-none text-gray-500">Guest</div>
-              <div class="username">Login to Purchase</div>
-            </div>
+        <div class="flex items-center font-bold text-lg bg-gray-800 pt-5 px-6">
+          <img :src="bodySrc" :alt="bodyAlt">
+          <div class="ml-5">
+            <div class="label text-xs uppercase tracking-widest leading-none text-gray-500">{{ loggedIn ? 'shopping as' : 'Guest' }}</div>
+            <div class="username">{{ bodyTitle }}</div>
           </div>
-          <button @click="showLoginPanel" class="bg-gray-750 border border-light text-gray-500 font-bold text-sm flex items-center justify-center py-3 px-5 w-full transition-colors duration-150 ease-in-out hover:bg-yellow-400 hover:text-yellow-800 focus:bg-yellow-300 focus:outline-none focus:text-yellow-800">
+        </div>
+        <button @click="showLoginPanel" class="bg-gray-750 border border-light text-gray-500 font-bold text-sm flex items-center justify-center py-3 px-5 w-full transition-colors duration-150 ease-in-out hover:bg-yellow-400 hover:text-yellow-800 focus:bg-yellow-300 focus:outline-none focus:text-yellow-800">
+          <template v-if="loggedIn">
+            <svg class="w-4 h-4 mr-3 opacity-75" viewBox="0 0 512 512" fill="currentColor">
+              <path d="M0 168v-16c0-13.255 10.745-24 24-24h381.97l-30.467-27.728c-9.815-9.289-10.03-24.846-.474-34.402l10.84-10.84c9.373-9.373 24.568-9.373 33.941 0l82.817 82.343c12.497 12.497 12.497 32.758 0 45.255l-82.817 82.343c-9.373 9.373-24.569 9.373-33.941 0l-10.84-10.84c-9.556-9.556-9.341-25.114.474-34.402L405.97 192H24c-13.255 0-24-10.745-24-24zm488 152H106.03l30.467-27.728c9.815-9.289 10.03-24.846.474-34.402l-10.84-10.84c-9.373-9.373-24.568-9.373-33.941 0L9.373 329.373c-12.497 12.497-12.497 32.758 0 45.255l82.817 82.343c9.373 9.373 24.569 9.373 33.941 0l10.84-10.84c9.556-9.556 9.341-25.113-.474-34.402L106.03 384H488c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"/>
+            </svg>
+            <span>Swap Account</span>
+          </template>
+          <template v-else>
             <svg class="w-4 h-4 mr-3 opacity-50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
             </svg>
             <span>Enter Username</span>
-          </button>
-        </div>
+          </template>
+        </button>
       </div>
       <div class="item-guest py-10">
         <div class="top relative flex items-center justify-between m-6">
@@ -62,8 +68,13 @@
           </div>
         </div>
         <div class="px-6 py-12 text-gray-500 text-center leading-2">
-          <p>Looks like you're not signed in yet!</p>
-          <p class="text-sm">You'll need to sign in to add items to your cart.</p>
+          <template v-if="loggedIn && count === 0">
+            <p>Looks like your cart is empty! Add some items to get started.</p>
+          </template>
+          <template v-else-if="!loggedIn">
+            <p>Looks like you're not signed in yet!</p>
+            <p class="text-sm">You'll need to sign in to add items to your cart.</p>
+          </template>
         </div>
       </div>
     </div>
@@ -79,11 +90,10 @@ export default {
 <script setup>
 import {reactive, shallowRef} from "vue";
 import {publishSync, subscribe} from "pubsub-js";
+import {computed} from "vue";
 
-const playerInformation = reactive({
-  name: 'Guest',
-  avatar: 'https://minotar.net/helm/Guest/48'
-})
+const props = defineProps(['player'])
+const player = props.player
 
 const count = shallowRef(0)
 
@@ -97,6 +107,16 @@ const closeAll = () => {
   currencyShown.value = sidebarShown.value = false
 }
 subscribe('changeBarCondition', closeAll)
+
+const avatarSrc = computed(() => loggedIn.value ? `https://minotar.net/helm/${player.uuid}/48` : 'https://minotar.net/avatar/Guest/48')
+const username = computed(() => loggedIn.value ? player.name : 'Guest')
+const bodyAlt = computed(() => loggedIn.value ? player.name + '\'s Minecraft Skin' : 'Guest Minecraft Skin')
+const bodySrc = computed(() => loggedIn.value ? `https://visage.surgeplay.com/bust/64/${player.uuid}` : 'https://visage.surgeplay.com/bust/64/c06f89064c8a49119c29ea1dbd1aab82')
+const bodyTitle = computed(() => loggedIn.value ? player.name : 'Login to Purchase')
+const loggedIn = shallowRef(false)
+subscribe('userLogin', () => {
+  loggedIn.value = true
+})
 
 const showLoginPanel = () => {
   publishSync('showLoginPanel')

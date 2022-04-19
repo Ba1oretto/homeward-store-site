@@ -23,10 +23,12 @@ export default {
 
 <script setup>
 import {shallowRef} from "vue";
+import useLogin from "../../store/login.js";
 
 const username = shallowRef('')
 
 const submit = () => {
-  console.log(username.value)
+  const loginStore = useLogin();
+  loginStore.login(username.value)
 }
 </script>

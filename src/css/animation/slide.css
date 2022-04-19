@@ -1,0 +1,18 @@
+.slide-leave-active {
+    animation: slide ease-in-out 0.5s reverse;
+}
+
+.slide-enter-active {
+    animation: slide ease-in-out 0.5s;
+}
+
+@keyframes slide {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
