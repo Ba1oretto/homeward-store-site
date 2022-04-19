@@ -34,7 +34,7 @@
               <div class="username">Login to Purchase</div>
             </div>
           </div>
-          <button class="bg-gray-750 border border-light text-gray-500 font-bold text-sm flex items-center justify-center py-3 px-5 w-full transition-colors duration-150 ease-in-out hover:bg-yellow-400 hover:text-yellow-800 focus:bg-yellow-300 focus:outline-none focus:text-yellow-800">
+          <button @click="showLoginPanel" class="bg-gray-750 border border-light text-gray-500 font-bold text-sm flex items-center justify-center py-3 px-5 w-full transition-colors duration-150 ease-in-out hover:bg-yellow-400 hover:text-yellow-800 focus:bg-yellow-300 focus:outline-none focus:text-yellow-800">
             <svg class="w-4 h-4 mr-3 opacity-50" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
             </svg>
@@ -78,7 +78,7 @@ export default {
 
 <script setup>
 import {reactive, shallowRef} from "vue";
-import {subscribe} from "pubsub-js";
+import {publishSync, subscribe} from "pubsub-js";
 
 const playerInformation = reactive({
   name: 'Guest',
@@ -93,15 +93,20 @@ const changeCurrencyListCondition = (event) => {
   const currencyWrap = document.getElementsByClassName('currency-wrap')
   if (!currencyWrap.item(0).contains(event.target)) currencyShown.value = false
 }
-subscribe('changeBarCondition', () => {
+const closeAll = () => {
   currencyShown.value = sidebarShown.value = false
-})
+}
+subscribe('changeBarCondition', closeAll)
+
+const showLoginPanel = () => {
+  publishSync('showLoginPanel')
+  closeAll()
+}
 
 const currencyEnabled = reactive({
   name: 'USD',
   symbol: '$'
 })
-
 const currencyList = [
   {
     code: "AUD",
