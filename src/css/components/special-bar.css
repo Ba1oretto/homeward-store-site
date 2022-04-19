@@ -1,0 +1,31 @@
+.specials-bar {
+    background: #452ea3;
+    font-weight: 700;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+.specials-bar .text {
+    padding: 16px;
+}
+@screen lg {
+    .specials-bar {
+        padding: 10px 20px;
+    }
+}
+.progressbar .progress {
+    background: rgba(255, 255, 255, 0.2);
+}
+@screen lg {
+    .progressbar .progress {
+        width: 140px;
+    }
+}
+.progressbar .total {
+    background: #fff;
+    height: 6px;
+}

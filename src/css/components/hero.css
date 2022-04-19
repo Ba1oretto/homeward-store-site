@@ -1,0 +1,98 @@
+.hero {
+    text-shadow: rgba(0, 0, 0, 0.25) 3px 3px 2px;
+    box-shadow: inset #fff3 0 0 0 3px;
+    position: relative;
+}
+.hero .text {
+    position: relative;
+    z-index: 10;
+}
+.hero .img {
+    display: none;
+    width: 468px;
+}
+.hero .img .layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    bottom: 0;
+    background-size: auto 100%;
+}
+@screen lg {
+    .hero .img {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        right: 20px;
+        width: 420px;
+    }
+}
+@screen xl {
+    .hero .img {
+        width: 520px;
+    }
+}
+.hero {
+    background: linear-gradient(
+            to bottom,
+            #2196f3 30%,
+            rgba(33, 150, 243, 0) 100%
+    ),
+    url(../../assets/image/hero/bg.jpg)
+    right center/cover;
+    justify-content: center;
+}
+@screen lg {
+    .hero {
+        justify-content: space-between;
+        background: linear-gradient(to right, #2196f3, rgba(33, 150, 243, 0) 70%),
+        url(../../assets/image/hero/bg.jpg)
+        right center/cover;
+    }
+    .hero .text {
+        max-width: 350px;
+    }
+    .hero .img .layer.layer1 {
+        background: url(../../assets/image/hero/chest.png)
+        bottom right no-repeat;
+        background-size: auto 230px;
+        right: 45px;
+    }
+    .hero .img .layer.layer2 {
+        background: url(../../assets/image/hero/character-2.png)
+        bottom left no-repeat;
+        background-size: auto 100%;
+        left: -180px;
+    }
+}
+
+.hero {
+    background: linear-gradient(180deg, #c788ef 30%, rgba(217, 141, 31, 0)),
+    url(../../assets/image/hero/Spring_Store.png)
+    100% / cover;
+    justify-content: center;
+}
+@screen lg {
+    .hero {
+        justify-content: space-between;
+        background: linear-gradient(90deg, #c788ef, rgba(217, 141, 31, 0) 70%),
+        url(../../assets/image/hero/Spring_Store.png)
+        100% / cover;
+    }
+    .hero .text {
+        max-width: 350px;
+    }
+    .hero .img .layer.layer1 {
+        background: none 100% 100% no-repeat;
+        background-size: auto 200px;
+        right: 30px;
+    }
+    .hero .img .layer.layer2 {
+        background: none no-repeat;
+        left: -140px;
+    }
+}

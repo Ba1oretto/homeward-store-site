@@ -1,6 +1,6 @@
 <template>
   <transition name="page" mode="out-in">
-    <footer v-show="footerEnabled" class="page-footer bg-yellow-400">
+    <footer v-show="footerEnabled" class="page-footer bg-yellow-400 mt-20">
       <div class="top bg-yellow-500">
         <div class="container mx-auto">
           <div class="md:ml-27.5 py-3 px-6 md:flex md:items-center md:justify-between">

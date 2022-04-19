@@ -2,6 +2,10 @@
 @import "./components/header.css";
 @import "./components/wrap.css";
 @import "./components/toast.css";
+@import "./components/hero.css";
+@import "./components/special-bar.css";
+@import "components/home.css";
+@import "components/modal.css";
 
 @import "animation/clipboard.css";
 @import "animation/page.css";

@@ -1,0 +1,190 @@
+.categories {
+    display: grid;
+    grid-gap: 20px;
+}
+.categories .category {
+    background: #181a1b;
+    box-shadow: #fff3 0 0 0 2px inset;
+    color: #fff;
+    font-weight: 700;
+    font-size: 32px;
+    position: relative;
+    min-height: 230px;
+    line-height: normal;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+.categories .category .render {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.categories .category .render div {
+    background: bottom left/auto no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.3s ease-in-out opacity;
+}
+.categories .category .render div.layer2 {
+    opacity: 0;
+}
+.categories .category:before {
+    content: 'NEW';
+    position: absolute;
+    top: 10px;
+    left: -50px;
+    font-size: 26px;
+    letter-spacing: 2px;
+    transform: rotate(-45deg);
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px 60px;
+    text-shadow: rgba(0, 0, 0, 0.2) 0 3px 6px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: none;
+}
+.homepage .categories .category.category-crates:before {
+    display: block;
+}
+.categories .category:hover {
+    opacity: 0.8;
+}
+.categories .category:hover .render .layer1 {
+    opacity: 0;
+}
+.categories .category:hover .render .layer2 {
+    opacity: 1;
+}
+.categories .category:focus {
+    transform: scale(0.9);
+}
+.categories .category .label {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+.categories .category.category-crates {
+    background: linear-gradient(50deg, #dc1628, #ea632e);
+}
+.categories .category.category-crates .render div {
+    background-size: 220px auto;
+    background-position: bottom -20px left 10px;
+}
+.categories .category.category-crates .render .layer1 {
+    background-image: url(../../assets/image/home/crates.png);
+}
+.categories .category.category-crates .render .layer2 {
+    background-image: url(../../assets/image/home/crates_hover.png);
+}
+.categories .category.category-ranks {
+    background: linear-gradient(50deg, #5e127d, #700b82);
+}
+.categories .category.category-ranks .render div {
+    background-size: 180px auto;
+    background-position: bottom -30px left 10px;
+}
+.categories .category.category-ranks .render .layer1 {
+    background-image: url(../../assets/image/home/ranks.png);
+}
+.categories .category.category-ranks .render .layer2 {
+    background-image: url(../../assets/image/home/ranks_hover.png);
+}
+.categories .category.category-extras {
+    background: linear-gradient(50deg, #bd4e23, #dea338);
+}
+.categories .category.category-extras .render div {
+    background-size: 240px auto;
+    background-position: bottom 0 left 10px;
+}
+.categories .category.category-extras .render .layer1 {
+    background-image: url(../../assets/image/home/extras.png);
+}
+.categories .category.category-extras .render .layer2 {
+    background-image: url(../../assets/image/home/extras_hover.png);
+}
+.categories .category.category-outfits {
+    background: linear-gradient(50deg, #168849, #99bb32);
+}
+.categories .category.category-outfits .render div {
+    background-size: auto 240px;
+    background-position: bottom -30px left 10px;
+}
+.categories .category.category-outfits .render .layer1 {
+    background-image: url(../../assets/image/home/outfits.png);
+}
+.categories .category.category-outfits .render .layer2 {
+    background-image: url(../../assets/image/home/outfits_hover.png);
+}
+@screen sm {
+    .categories {
+        grid-template-columns: minmax(auto, 50%) minmax(auto, 50%);
+    }
+    .categories .category.category-crates .render div {
+        background-size: 220px auto;
+        background-position: bottom -20px left -40px;
+    }
+    .categories .category.category-ranks .render div {
+        background-size: 180px auto;
+        background-position: bottom -30px left 10px;
+    }
+    .categories .category.category-extras .render div {
+        background-size: 220px auto;
+        background-position: bottom 20px left 10px;
+    }
+    .categories .category.category-outfits .render div {
+        background-size: auto 240px;
+        background-position: bottom -20px left -20px;
+    }
+}
+@screen lg {
+    .categories {
+        grid-template-columns: minmax(auto, 45%) minmax(auto, 55%);
+        grid-template-rows: 1fr 1fr;
+    }
+    .categories .category.category-crates {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+    }
+    .categories .category.category-crates .render div {
+        background-size: auto;
+        background-position: bottom 30px left 50px;
+    }
+    .categories .category.category-ranks {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .categories .category.category-ranks .render div {
+        background-size: 180px auto;
+        background-position: bottom -30px left 20px;
+    }
+    .categories .category.category-extras {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .categories .category.category-extras .render div {
+        background-size: 240px auto;
+        background-position: bottom 10px left 30px;
+    }
+    .categories.categories-4 {
+        grid-template-columns: minmax(auto, 27.5%) minmax(auto, 27.5%) minmax(
+        auto,
+        45%
+      );
+    }
+}
+.help-box {
+    background: linear-gradient(180deg, rgba(103, 246, 255, 0.62) 0%, rgba(27, 197, 208, 0.62) 100%);
+    box-shadow: #fff3 0 0 0 2px inset;
+}
+.help-box .orbit {
+    height: 210px;
+    background: center/cover no-repeat
+    url(../../assets/image/home/robot.png);
+    min-width: 210px;
+}

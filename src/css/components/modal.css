@@ -1,0 +1,86 @@
+.modal {
+    z-index: 99999;
+}
+.modal {
+    padding: 40px 0 0;
+    overflow: auto;
+}
+.modal .body {
+    max-width: 700px;
+    margin-bottom: 40px;
+}
+.content-wrap {
+    @apply text-gray-500
+}
+.content-wrap p {
+    padding-bottom: 18px;
+    font-size: 18px;
+    line-height: 1.6;
+}
+.content-wrap p > a {
+    color: #fff;
+    transition: 0.1s all ease-in-out;
+    position: relative;
+}
+.content-wrap p > a:hover,
+.content-wrap p > a:focus,
+.content-wrap p > a:active {
+    @apply text-yellow-350
+}
+.content-wrap h1,
+.content-wrap h2,
+.content-wrap h3,
+.content-wrap h4,
+.content-wrap h5,
+.content-wrap h6 {
+    @apply text-white font-bold pb-2.5
+}
+.content-wrap h1 {
+    font-size: 32px;
+}
+.content-wrap h2 {
+    font-size: 28px;
+}
+.content-wrap h3 {
+    font-size: 24px;
+}
+.content-wrap h4 {
+    font-size: 22px;
+}
+.content-wrap h5 {
+    font-size: 18px;
+}
+.content-wrap h6 {
+    font-size: 16px;
+}
+.content-wrap ol {
+    list-style: decimal;
+    padding: 20px;
+}
+.content-wrap ol li {
+    display: list-item;
+    padding-bottom: 6px;
+}
+.content-wrap ul {
+    list-style: disc;
+    padding: 10px 20px 20px;
+}
+.content-wrap ul li {
+    display: list-item;
+    padding-bottom: 6px;
+}
+.content-wrap img,
+.content-wrap iframe {
+    max-width: 100%;
+    margin: 30px auto;
+}
+.content-wrap blockquote {
+    margin: 20px 0;
+    padding: 10px 30px;
+    border-left: #181a1b 4px solid;
+}
+.content-wrap pre {
+    background-color: #00000080;
+    margin: 0 0 20px;
+    @apply text-white whitespace-pre-wrap p-5
+}
