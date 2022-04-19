@@ -46,6 +46,7 @@ module.exports = {
         gray: {
           '500': '#b3b7bc',
           '600': '#7b7f85',
+          '750': '#1d2021',
           '800': '#181a1b',
           '900': '#0d0e0f'
         },
@@ -58,6 +59,7 @@ module.exports = {
           blog: '#22afdc',
           help: '#20b966',
         },
+        light: '#ffffff1a',
         lighten: 'hsla(0,0%,100%,0.3)',
         ip: {
           '400': '#ffe7c2',

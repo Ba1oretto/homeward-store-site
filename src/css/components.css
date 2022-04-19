@@ -6,6 +6,7 @@
 @import "./components/special-bar.css";
 @import "components/home.css";
 @import "components/modal.css";
+@import "components/sidebar.css";
 
 @import "animation/clipboard.css";
 @import "animation/page.css";
