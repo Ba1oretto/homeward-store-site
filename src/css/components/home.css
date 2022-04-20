@@ -49,7 +49,7 @@
     border: 2px solid rgba(255, 255, 255, 0.3);
     display: none;
 }
-.homepage .categories .category.category-crates:before {
+.home-page .categories .category.category-crates:before {
     display: block;
 }
 .categories .category:hover {

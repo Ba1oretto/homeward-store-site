@@ -1,0 +1,16 @@
+.breadcrumbs {
+    font-weight: 700;
+}
+.breadcrumbs .separator {
+    color: #4b5563;
+    padding: 0 10px;
+}
+.breadcrumbs .breadcrumb {
+    color: #d1d5db;
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+}
+.breadcrumbs a.breadcrumb:hover {
+    color: #fff;
+}

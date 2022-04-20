@@ -49,7 +49,6 @@ const useLogin = defineStore('login', {
                 return false
             }
             const {data: result} = await axios.get('/homeward/api/player/login/pre')
-            console.log(result)
             if (isBlank(result) || isBlank(result.name) || isBlank(result.uuid)) {
                 cookies.remove('homeward-player')
                 publishSync('changeLoadingBgCondition', false)

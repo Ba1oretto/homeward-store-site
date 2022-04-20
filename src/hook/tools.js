@@ -1,4 +1,7 @@
-const isBlank = function isBlank(target) {
+const isBlank = function (target) {
     return (target === '' || target === null || target === {} || target === undefined);
 }
-export {isBlank}
+const rounding = function (number, keep) {
+    return number.toFixed(keep)
+}
+export {rounding, isBlank}

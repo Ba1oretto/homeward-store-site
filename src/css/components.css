@@ -7,6 +7,8 @@
 @import "components/home.css";
 @import "components/modal.css";
 @import "components/sidebar.css";
+@import "components/crate.css";
+@import "components/bread-crumbs.css";
 
 @import "animation/clipboard.css";
 @import "animation/page.css";

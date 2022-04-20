@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrap homepage">
+  <div class="page-wrap home-page">
     <div class="container mx-auto">
       <slot name="promotions-announcement"/>
       <slot name="special-bar"/>

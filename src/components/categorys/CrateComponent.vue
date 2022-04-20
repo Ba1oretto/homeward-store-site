@@ -1,5 +1,37 @@
 <template>
-
+  <div class="crates pt-16">
+    <div class="mb-12 crate-row" v-for="(item, index) in itemPreview" :key="index">
+      <div class="main bg-gray-900 border border-light grid lg:grid-cols-4">
+        <div class="image group">
+          <div :style="{backgroundImage: 'url(' + item.imageRegular + ')'}" class="regular transition-opacity duration-300 ease-in-out group-hover:opacity-0"/>
+          <div :style="{backgroundImage: 'url(' + item.imageHover + ')'}" class="hover opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"/>
+        </div>
+        <div class="text p-10 lg:col-span-3">
+          <div class="title text-center lg:text-left font-bold text-3xl mb-6">{{ item.groupName }}</div>
+          <div class="relative">
+            <div class="amounts grid lg:grid-cols-4">
+              <div v-for="single in item.itemsList" :key="single.id" @click="toPackage(single.id)" class="amount block text-center py-5 font-bold cursor-pointer bg-gray-800 border border-light border-r-0 last:border-r group transition-all duration-150 ease-in-out transform hover:text-yellow-800 hover:bg-yellow-400 hover:-translate-y-2">
+                <div class="amount text-2xl pb-1">{{ single.amount }}x</div>
+                <template v-if="single.discount">
+                  <div class="price opacity-25 text-sm line-through">${{ single.price / 100 }} USD</div>
+                  <div class="price opacity-50">${{ rounding(single.price * single.discountPercent / 10000, 2) }} USD</div>
+                </template>
+                <template v-else>
+                  <div class="price opacity-50 text-lg">${{ single.price / 100  }} USD</div>
+                </template>
+                <div class="buy-label flex items-center justify-center transition-colors duration-150 ease-in-out text-yellow-400 pt-3 group-hover:text-yellow-800">
+                  <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Buy Now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -9,5 +41,27 @@ export default {
 </script>
 
 <script setup>
+import useItem from "../../store/item.js";
+import {reactive} from "vue";
+import {rounding} from "../../hook/tools.js";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
+const itemStore = useItem();
+
+const toPackage = (id) => {
+  router.push({
+    name: 'package',
+    params: id
+  })
+  console.log(id)
+}
+
+const itemPreview = reactive([])
+itemStore.selectCratesList()
+itemStore.$subscribe((mutation, state) => {
+  state.itemPreview.forEach(v => {
+    itemPreview.push(v)
+  })
+})
 </script>
