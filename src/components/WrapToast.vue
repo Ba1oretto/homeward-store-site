@@ -1,5 +1,5 @@
 <template>
-  <div class="toasts fixed left-0 bottom-0 z-9999999 leading-loose grid gap-5 m-6">
+  <div class="toasts fixed left-0 bottom-0 z-999 leading-loose grid gap-5 m-6">
     <transition name="slide" mode="out-in">
       <div v-show="toast.isActive" class="toast-wrap">
         <div :class="toast.condition ? 'bg-green-700' : 'bg-red-600'" class="toast inline-flex text-white font-bold border border-lighten rounded-lg text-black py-3 px-6 shadow-xl text-shadow">

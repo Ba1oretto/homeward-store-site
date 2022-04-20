@@ -24,11 +24,16 @@ export default {
 <script setup>
 import {shallowRef} from "vue";
 import useLogin from "../../store/login.js";
+import {publishSync, subscribe} from "pubsub-js";
+
+const loginStore = useLogin();
 
 const username = shallowRef('')
-
 const submit = () => {
-  const loginStore = useLogin();
+  publishSync('changeLoadingBgCondition', true)
   loginStore.login(username.value)
 }
+subscribe('initLoginInput', () => {
+  username.value = ''
+})
 </script>

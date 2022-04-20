@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 
 const home = () => import('./components/pages/HomePage.vue')
+const categories = () => import('./components/pages/CategoryPage.vue')
 
 const routes = [
     {
@@ -10,7 +11,8 @@ const routes = [
     },
     {
         name: 'category',
-        path: '/category/:id'
+        path: '/category/:id',
+        component: categories
     },
     {
         name: 'rank',

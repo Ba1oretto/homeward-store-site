@@ -2,7 +2,6 @@
   <div class="page-wrap">
     <div class="page-bg" :style="{backgroundImage: 'url(' + bgImg + ')'}"/>
     <div class="notification"/>
-
     <router-view v-slot="{Component, route}">
       <component :is="Component" :key="route.path">
         <template #promotions-announcement>
@@ -13,9 +12,7 @@
         </template>
       </component>
     </router-view>
-
     <wrap-toast/>
-
     <wrap-sidebar :player="player"/>
   </div>
 </template>
@@ -31,8 +28,8 @@ import WrapToast from "./WrapToast.vue";
 import WrapSidebar from "./WrapSidebar.vue";
 import PromotionsAnnouncement from "./appearance/PromotionsAnnouncement.vue";
 import SpecialBar from "./appearance/SpecialBar.vue";
-import {computed, reactive, shallowRef} from "vue";
-import {publishSync, subscribe} from "pubsub-js";
+import {reactive} from "vue";
+import {publishSync} from "pubsub-js";
 import useLogin from "../store/login.js";
 
 const bgImg = 'https://ghost.ba1oretto.com/content/images/2022/04/Beta_Announcement_Blog.jpg'

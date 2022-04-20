@@ -10,6 +10,11 @@ export default defineConfig({
         target: 'https://api.mojang.com/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/mojang/, '')
+      },
+      '/homeward/api': {
+        target: 'http://127.0.0.1:50012/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/homeward\/api/, '')
       }
     }
   }

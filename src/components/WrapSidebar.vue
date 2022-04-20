@@ -120,6 +120,7 @@ subscribe('userLogin', () => {
 
 const showLoginPanel = () => {
   publishSync('showLoginPanel')
+  publishSync('initLoginInput')
   closeAll()
 }
 
