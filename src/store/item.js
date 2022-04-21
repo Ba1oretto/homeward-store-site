@@ -7,13 +7,14 @@ const useItem = defineStore('item', {
     state: () => {
         return {
             cratesPreview: [],
-            extrasPreview: []
+            extrasPreview: [],
+            itemPackage: {}
         }
     },
     actions: {
         async selectCratesList() {
             if (this.cratesPreview.length !== 0) return false
-            const {data: {data: result}} = await axios.get('/homeward/api/item/crate')
+            const {data: {data: result}} = await axios.get('/homeward/api/item/category/crate')
 
             const itemPreviewMeta = {
                 groupName: undefined,
@@ -69,8 +70,7 @@ const useItem = defineStore('item', {
         },
         async selectExtrasList() {
             if (this.extrasPreview.length !== 0) return false
-            const {data: {data: result}} = await axios.get('/homeward/api/item/extra')
-            console.log(result)
+            const {data: {data: result}} = await axios.get('/homeward/api/item/category/extra')
             if (isBlank(result)) return false
             result.forEach(v => {
                 this.extrasPreview.push(v)
@@ -79,8 +79,15 @@ const useItem = defineStore('item', {
         async toPackage(id) {
             router.push({
                 name: 'package',
-                params: id
+                params: {
+                    id
+                }
             })
+        },
+        async selectPackage(id) {
+            if (isBlank(id)) return false;
+            const {data: {data: result}} = await axios.get(`/homeward/api/item/package/${id}`)
+            this.itemPackage = {...result}
         }
     }
 })

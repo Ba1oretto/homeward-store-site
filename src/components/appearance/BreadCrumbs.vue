@@ -8,7 +8,17 @@
     </router-link>
     <template v-if="name === 'category'">
       <div class="separator">/</div>
-      <div class="breadcrumb">{{ param }}</div>
+      <div class="breadcrumb">{{ param.id }}</div>
+    </template>
+    <template v-if="name === 'rank'">
+      <div class="separator">/</div>
+      <div class="breadcrumb">ranks</div>
+    </template>
+    <template v-if="name === 'package'">
+      <div class="separator">/</div>
+      <router-link :to="'/category/' + itemPackage.category + 's'" class="breadcrumb">{{ itemPackage.category + 's' }}</router-link>
+      <div class="separator">/</div>
+      <div class="breadcrumb">{{ itemPackage.name }}</div>
     </template>
   </div>
 </template>
@@ -20,9 +30,20 @@ export default {
 </script>
 
 <script setup>
-import {shallowRef} from "vue";
+import {reactive, shallowRef} from "vue";
+import {subscribe} from "pubsub-js";
 
-const props = defineProps(['name', 'param'])
-const name = shallowRef(props.name)
-const param = shallowRef(props.param.id)
+const props = defineProps(['route'])
+const name = shallowRef(props.route.name)
+const param = shallowRef(props.route.params)
+
+const itemPackage = reactive({
+  name: '',
+  category: ''
+})
+const changeItemPackageInfo = (_, value) => {
+  itemPackage.name = value.name
+  itemPackage.category = value.category
+}
+subscribe('changeItemPackageInfo', changeItemPackageInfo)
 </script>

@@ -21,10 +21,11 @@ import {shallowRef} from "vue";
 import CrateComponent from "../categorys/CrateComponent.vue";
 import ExtraComponent from "../categorys/ExtraComponent.vue";
 import RankComponent from "../categorys/RankComponent.vue";
+import PackageComponent from "../categorys/PackageComponent.vue";
 import {isBlank} from "../../hook/tools.js";
 
 const category = !isBlank(useRoute().params.id) ? useRoute().params.id.toLowerCase() : ''
 const name = useRoute().name
 
-const currentComponent = shallowRef(category.includes('crates') ? CrateComponent : category.includes('extras') ? ExtraComponent : name.includes('rank') ? RankComponent : '')
+const currentComponent = shallowRef(category.includes('crates') ? CrateComponent : category.includes('extras') ? ExtraComponent : name.includes('rank') ? RankComponent : name.includes('package') ? PackageComponent : '')
 </script>

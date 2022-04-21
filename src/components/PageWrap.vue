@@ -7,7 +7,7 @@
         <keep-alive>
           <component :is="Component" :key="route.path">
             <template #bread-crumbs>
-              <bread-crumbs :name="route.name" :param="route.params"/>
+              <bread-crumbs :route="route"/>
             </template>
             <template #promotions-announcement>
               <promotions-announcement/>

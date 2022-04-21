@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import {publishSync} from "pubsub-js";
 
 const home = () => import('./components/pages/HomePage.vue')
 const categories = () => import('./components/pages/CategoryPage.vue')
@@ -22,8 +21,13 @@ const routes = [
     },
     {
         name: 'package',
-        path: '/package/:id'
-    }
+        path: '/package/:id',
+        component: categories
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound'
+    },
 ]
 
 const router = createRouter({
@@ -31,16 +35,10 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach(() => {
-    publishSync('changeLoadingBgCondition', true)
-    publishSync('changeFooterCondition', false)
-    window.scroll({top: 0, behavior: "smooth"})
-})
-router.afterEach(() => {
-    setTimeout(() => {
-        publishSync('changeLoadingBgCondition', false)
-        publishSync('changeFooterCondition', true)
-    }, 100)
-})
+// router.beforeEach(() => {
+//     publishSync('changeLoadingBgCondition', true)
+//     publishSync('changeFooterCondition', false)
+//     window.scroll({top: 0, behavior: "smooth"})
+// })
 
 export default router
