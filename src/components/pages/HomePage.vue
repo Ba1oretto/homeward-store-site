@@ -6,7 +6,7 @@
       <section class="section-categories mb-6">
         <h2 class="text-3xl font-bold mb-4">Categories</h2>
         <div class="categories">
-          <router-link :to="category.path" v-for="category in categories" :class="category.style" class="category">
+          <router-link :to="category.path" @click="resetQuery" v-for="category in categories" :class="category.style" class="category">
             <div class="render">
               <div class="layer1"/>
               <div class="layer2"/>
@@ -42,6 +42,11 @@ export default {
 
 <script setup>
 import {publishSync} from "pubsub-js";
+import useItem from "../../store/item.js";
+
+const resetQuery = () => {
+  useItem().query = ''
+}
 
 const categories = [
   {

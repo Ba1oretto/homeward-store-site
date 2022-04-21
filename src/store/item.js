@@ -7,7 +7,8 @@ const useItem = defineStore('item', {
     state: () => {
         return {
             cratesPreview: [],
-            extrasPreview: []
+            extrasPreview: [],
+            query: ''
         }
     },
     actions: {
