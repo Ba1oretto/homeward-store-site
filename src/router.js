@@ -17,7 +17,8 @@ const routes = [
     },
     {
         name: 'rank',
-        path: '/ranks'
+        path: '/ranks',
+        component: categories
     },
     {
         name: 'package',
