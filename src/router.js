@@ -33,6 +33,7 @@ const router = createRouter({
 router.beforeEach(() => {
     publishSync('changeLoadingBgCondition', true)
     publishSync('changeFooterCondition', false)
+    window.scroll({top: 0, behavior: "smooth"})
 })
 router.afterEach(() => {
     setTimeout(() => {

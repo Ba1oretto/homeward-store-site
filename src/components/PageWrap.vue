@@ -42,7 +42,6 @@ import BreadCrumbs from "./appearance/BreadCrumbs.vue";
 
 const bgImg = 'https://ghost.ba1oretto.com/content/images/2022/04/Beta_Announcement_Blog.jpg'
 
-
 const player = reactive({
   name: '',
   uuid: ''

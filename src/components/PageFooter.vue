@@ -77,10 +77,8 @@ const changeIpStyle = () => {
   privateBounce()
 }
 
-// todo 动画
 const footerEnabled = shallowRef(true)
 const changeFooterCondition = (_, enable) => {
-  console.log(enable)
   footerEnabled.value = enable
 }
 subscribe('changeFooterCondition', changeFooterCondition)
