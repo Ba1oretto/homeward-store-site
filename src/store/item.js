@@ -7,8 +7,7 @@ const useItem = defineStore('item', {
     state: () => {
         return {
             cratesPreview: [],
-            extrasPreview: [],
-            query: ''
+            extrasPreview: []
         }
     },
     actions: {
@@ -71,6 +70,7 @@ const useItem = defineStore('item', {
         async selectExtrasList() {
             if (this.extrasPreview.length !== 0) return false
             const {data: {data: result}} = await axios.get('/homeward/api/item/extra')
+            console.log(result)
             if (isBlank(result)) return false
             result.forEach(v => {
                 this.extrasPreview.push(v)

@@ -1,12 +1,12 @@
 <template>
-  <div class="packages grid gap-6 md:grid-cols-2 pt-16 select-none">
-    <div v-for="(item, index) in itemPreview" @click="itemStore.toPackage(item.id)" :key="index" class="package pb-1.5 relative grid bg-gray-900 border border-lighten transform transition-all hover:opacity-75 hover:-translate-y-2">
+  <transition-group tag="div" class="packages grid gap-6 md:grid-cols-2 pt-16 select-none" :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave">
+    <div v-for="(item, index) in computedItemPreview" @click="itemStore.toPackage(item.id)" :key="index" :data-index="index" class="package pb-1.5 relative grid bg-gray-900 border border-lighten transform transition-all hover:opacity-75 hover:-translate-y-2">
       <div class="image relative">
         <div class="bg-block absolute left-0 right-0 bg-gray-800 mx-12 h-24"></div>
         <img :src="item.imageRegular" :alt="item.groupName" class="relative">
       </div>
       <div class="text px-6 text-center grid font-bold">
-        <div class="name text-white text-lg">{{ item.name }}</div>
+        <div class="name text-white text-lg">{{ item.groupName }}</div>
         <template v-if="item.discount">
           <div class="price pt-2 text-yellow-400">
             <div class="discounted text-gray-500 text-sm font-italic line-through">${{ item.price / 100 }} USD</div>
@@ -25,8 +25,7 @@
         <div class="quality-bar h-1.5 absolute bottom-0 left-0 right-0"/>
       </div>
     </div>
-    <!--todo search-->
-  </div>
+  </transition-group>
 </template>
 
 <script>
@@ -38,9 +37,15 @@ export default {
 <script setup>
 import useItem from "../../store/item.js";
 import {rounding} from "../../hook/tools.js";
-import {reactive} from "vue";
+import {computed, shallowRef, watch, reactive} from "vue";
+import gsap from "gsap";
 
 const itemStore = useItem();
+const props = defineProps(['query']);
+const query = shallowRef('')
+watch(() => props.query, value => {
+  query.value = value
+})
 
 const itemPreview = reactive([])
 let enable = true
@@ -53,4 +58,25 @@ itemStore.$subscribe((mutation, state) => {
     enable = false
   }
 })
+
+const computedItemPreview = computed(() => {
+  return itemPreview.filter((item) => item.groupName.toLowerCase().includes(query.value))
+})
+function onBeforeEnter(el) {
+  el.style.opacity = 0
+}
+function onEnter(el, done) {
+  gsap.to(el, {
+    opacity: 1,
+    delay: el.dataset.index * 0.15,
+    onComplete: done
+  })
+}
+function onLeave(el, done) {
+  gsap.to(el, {
+    opacity: 0,
+    delay: el.dataset.index * 0.15,
+    onComplete: done
+  })
+}
 </script>
