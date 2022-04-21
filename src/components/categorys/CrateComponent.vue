@@ -9,8 +9,8 @@
         <div class="text p-10 lg:col-span-3">
           <div class="title text-center lg:text-left font-bold text-3xl mb-6">{{ item.groupName }}</div>
           <div class="relative">
-            <div class="amounts grid lg:grid-cols-4">
-              <div v-for="single in item.itemsList" :key="single.id" @click="toPackage(single.id)" class="amount block text-center py-5 font-bold cursor-pointer bg-gray-800 border border-light border-r-0 last:border-r group transition-all duration-150 ease-in-out transform hover:text-yellow-800 hover:bg-yellow-400 hover:-translate-y-2">
+            <div class="amounts grid lg:grid-cols-4 select-none">
+              <div v-for="single in item.itemsList" :key="single.id" @click="itemStore.toPackage(single.id)" class="amount block text-center py-5 font-bold cursor-pointer bg-gray-800 border border-light border-r-0 last:border-r group transition-all duration-150 ease-in-out transform hover:text-yellow-800 hover:bg-yellow-400 hover:-translate-y-2">
                 <div class="amount text-2xl pb-1">{{ single.amount }}x</div>
                 <template v-if="single.discount">
                   <div class="price opacity-25 text-sm line-through">${{ single.price / 100 }} USD</div>
@@ -49,19 +49,15 @@ import {useRouter} from "vue-router";
 const router = useRouter();
 const itemStore = useItem();
 
-const toPackage = (id) => {
-  router.push({
-    name: 'package',
-    params: id
-  })
-  console.log(id)
-}
-
 const itemPreview = reactive([])
+let enable = true
 itemStore.selectCratesList()
 itemStore.$subscribe((mutation, state) => {
-  state.itemPreview.forEach(v => {
-    itemPreview.push(v)
-  })
+  if (enable) {
+    state.cratesPreview.forEach(v => {
+      itemPreview.push(v)
+    })
+    enable = false
+  }
 })
 </script>

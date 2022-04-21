@@ -19,3 +19,25 @@
     bottom: 0;
     background: center/cover;
 }
+.package {
+    grid-template-rows: auto 1fr;
+}
+.package .image {
+    padding: 40px 0 0;
+    height: 260px;
+    box-sizing: content-box;
+}
+.package .image .bg-block {
+    top: 100px;
+}
+.package .image img {
+    max-width: 90%;
+    max-height: 240px;
+    margin: 0 auto;
+}
+.package .text {
+    grid-template-rows: 1fr auto auto;
+}
+.package .quality-bar {
+    background: #eb4be5;
+}
