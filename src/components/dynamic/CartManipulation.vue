@@ -73,6 +73,14 @@ const login = () => {
 }
 
 const count = shallowRef(0)
+const getCartFirst = () => {
+  cartStore.cart.forEach(v => {
+    if (v.id === packageId) {
+      count.value = v.inCart
+    }
+  })
+}
+getCartFirst()
 let isDefined = false
 cartStore.$subscribe((mutation, state) => {
   isDefined = false
@@ -80,7 +88,6 @@ cartStore.$subscribe((mutation, state) => {
     if (v.id === packageId) {
       count.value = v.inCart
       isDefined = true
-      console.log(isDefined)
     }
   })
   if (!isDefined) count.value = 0

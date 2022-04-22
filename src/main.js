@@ -6,7 +6,6 @@ import {createPinia} from "pinia";
 import useLogin from "./store/login.js";
 import {globalCookiesConfig} from "vue3-cookies";
 import useCart from "./store/cart.js";
-import {publishSync} from "pubsub-js";
 
 globalCookiesConfig({
     expireTimes: '7d',
@@ -33,5 +32,7 @@ loginStore.preLogin()
 // })
 
 router.afterEach((to) => {
-    if (to.name === 'package') cartStore.preCartCount()
+    if (to.name === 'package') {
+        cartStore.preCartCount()
+    }
 })

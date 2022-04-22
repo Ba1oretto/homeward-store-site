@@ -44,7 +44,7 @@ const useCart = defineStore('cart', {
             publishSync('changeLoadingBgCondition', true)
             const formData = dataCheck(packageId);
             if (!formData) return false
-            const {data: result} = await axios.put('/homeward/api/cart/reset/single', formData)
+            const {data: result} = await axios.put('/homeward/api/cart/reset', formData)
             if (!result) return false
             await this.preCartCount()
             publishSync('changeLoadingBgCondition', false)
@@ -57,7 +57,7 @@ const useCart = defineStore('cart', {
             }
             const formData = new FormData;
             formData.append('playerId', player)
-            const {data: result} = await axios.put('/homeward/api/cart/count/pre', formData)
+            const {data: result} = await axios.put('/homeward/api/cart/preview', formData)
             this.cart = result
             console.log('cart preview: ', result)
         }
