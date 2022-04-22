@@ -24,8 +24,13 @@ export default {
 
 <script setup>
 import {shallowRef} from "vue";
+import {subscribe} from "pubsub-js";
+import {toNumber} from "lodash";
 
 const bgColor = 'rgb(199, 136, 239)'
-// todo 动态赋值
 const currentProgress = shallowRef('0%')
+subscribe('setSpendPercent', (_, value) => {
+  const currentPercent = (toNumber(value / 20) * 100).toFixed(0)
+  currentProgress.value = currentPercent >= 100 ? '100%' : currentPercent + '%'
+})
 </script>

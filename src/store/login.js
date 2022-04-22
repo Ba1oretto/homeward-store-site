@@ -3,6 +3,7 @@ import {isBlank} from "../hook/tools.js";
 import {publishSync} from "pubsub-js";
 import axios from "axios";
 import {useCookies} from "vue3-cookies";
+import useCart from "./cart.js";
 
 const {cookies} = useCookies();
 const useLogin = defineStore('login', {
@@ -43,6 +44,7 @@ const useLogin = defineStore('login', {
             publishSync('changeModalCondition')
             publishSync('changeLoadingBgCondition', false)
             publishSync('showToast', {condition: true, message: 'logged in', time: 2500})
+            useCart().preCartCount()
         },
         async preLogin() {
             const player = cookies.get('homeward-player');

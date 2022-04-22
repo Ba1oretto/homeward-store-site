@@ -117,13 +117,13 @@ export default {
 </script>
 
 <script setup>
-import {reactive, shallowRef} from "vue";
+import {reactive, shallowRef, watch} from "vue";
 import {publishSync, subscribe} from "pubsub-js";
 import {computed} from "vue";
 import useLogin from "../store/login.js";
 import useCart from "../store/cart.js";
 import {rounding} from "../hook/tools.js";
-import {toNumber} from "lodash";
+import {debounce, toNumber} from "lodash";
 
 const loginStore = useLogin();
 const cartStore = useCart()
@@ -173,6 +173,9 @@ cartStore.$subscribe((mutation, state) => {
 })
 
 const totalPrice = shallowRef(0)
+watch(() => totalPrice.value, debounce(v => {
+  publishSync('setSpendPercent', v)
+}, 200))
 
 const showLoginPanel = () => {
   publishSync('showLoginPanel')
