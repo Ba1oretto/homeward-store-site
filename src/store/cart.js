@@ -59,7 +59,6 @@ const useCart = defineStore('cart', {
             formData.append('playerId', player)
             const {data: result} = await axios.put('/homeward/api/cart/preview', formData)
             this.cart = result
-            console.log('cart preview: ', result)
         }
     }
 })

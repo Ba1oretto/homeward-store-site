@@ -67,15 +67,44 @@
             </div>
           </div>
         </div>
-        <div class="px-6 py-12 text-gray-500 text-center leading-2">
-          <template v-if="loggedIn && count.length === 0">
-            <p>Looks like your cart is empty! Add some items to get started.</p>
+          <template v-if="loggedIn">
+            <template v-if="count !== 0">
+              <transition-group tag="ul" class="items overflow-y-auto">
+                <li v-for="(item, index) in cart" :key="index" :data-index="index" class="flex items-start p-6 m-4 bg-gray-800 rounded-lg">
+                  <div class="text leading-none">
+                    <div class="flex items-center mb-2">
+                      <div class="name text-lg">{{ item.amount }}x {{ item.name }}</div>
+                      <span class="font-bold text-sm text-gray-500 ml-2">{{ item.inCart }}x</span>
+                    </div>
+                    <span class="price text-gray-500">${{ rounding(item.price * item.discountPercent / 10000, 2) }} USD</span>
+                  </div>
+                  <button @click="clear(item.id)" class="ml-auto text-gray-500 transition-colors duration-150 ease-in-out hover:text-red-500 focus:outline-none p-1">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </button>
+                </li>
+              </transition-group>
+              <div class="total flex items-center justify-between p-6">
+                <div>
+                  <p class="text-gray-500 text-xs uppercase tracking-wide">{{ count }} items</p>
+                  <p>${{ totalPrice }} USD</p>
+                </div>
+                <button class="bg-btn border border-lighten py-2 px-4 shadow-btn uppercase font-extrabold tracking-widest text-btn-text transition-all duration-150 ease-in-out hover:opacity-75 focus:outline-none">Checkout</button>
+              </div>
+            </template>
+            <template v-else>
+              <div class="px-6 py-12 text-gray-500 text-center leading-2">
+                <p>Looks like your cart is empty! Add some items to get started.</p>
+              </div>
+            </template>
           </template>
-          <template v-else-if="!loggedIn">
-            <p>Looks like you're not signed in yet!</p>
-            <p class="text-sm">You'll need to sign in to add items to your cart.</p>
+          <template v-else>
+            <div class="px-6 py-12 text-gray-500 text-center leading-2">
+              <p>Looks like you're not signed in yet!</p>
+              <p class="text-sm">You'll need to sign in to add items to your cart.</p>
+            </div>
           </template>
-        </div>
       </div>
     </div>
   </div>
@@ -93,11 +122,14 @@ import {publishSync, subscribe} from "pubsub-js";
 import {computed} from "vue";
 import useLogin from "../store/login.js";
 import useCart from "../store/cart.js";
+import {rounding} from "../hook/tools.js";
+import {toNumber} from "lodash";
 
 const loginStore = useLogin();
 const cartStore = useCart()
 
 const count = shallowRef(cartStore.cart.length)
+const cart = reactive([])
 
 const sidebarShown = shallowRef(false)
 const currencyShown = shallowRef(false)
@@ -127,13 +159,29 @@ loginStore.$subscribe((mutation, state) => {
   loggedIn.value = state.loggedIn
 })
 cartStore.$subscribe((mutation, state) => {
+  cart.splice(0, cart.length)
   count.value = state.cart.length
+  let price = 0
+  state.cart.forEach(v => {
+    cart.push(v)
+    const rawPrice = v.price * v.discountPercent / 10000
+    const nPrice = rawPrice * v.inCart
+    const formattedPrice = nPrice.toFixed(2);
+    price = toNumber(price) + toNumber(formattedPrice)
+  })
+  totalPrice.value = price
 })
+
+const totalPrice = shallowRef(0)
 
 const showLoginPanel = () => {
   publishSync('showLoginPanel')
   publishSync('initLoginInput')
   closeAll()
+}
+
+const clear = (packageId) => {
+  cartStore.packageReset(packageId)
 }
 
 const currencyEnabled = reactive({

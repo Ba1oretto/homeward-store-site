@@ -25,14 +25,18 @@ const cartStore = useCart();
 loginStore.preLogin()
 
 // router.beforeEach((to, from) => {
-//     // cartStore.preCartCount()
 //     // publishSync('changeLoadingBgCondition', true)
 //     // publishSync('changeFooterCondition', false)
 //     // window.scroll({top: 0, behavior: "smooth"})
 // })
-
+let cartIsInitialized = false
 router.afterEach((to) => {
     if (to.name === 'package') {
         cartStore.preCartCount()
+        cartIsInitialized = true
+    }
+    if (!cartIsInitialized) {
+        cartStore.preCartCount()
+        cartIsInitialized = true
     }
 })
