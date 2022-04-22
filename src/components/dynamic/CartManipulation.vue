@@ -62,6 +62,8 @@ const route = useRoute()
 const cartStore = useCart();
 const loginStore = useLogin();
 
+const packageId = route.params.id
+
 const loggedIn = shallowRef(loginStore.loggedIn)
 loginStore.$subscribe((mutation, state) => {
   loggedIn.value = state.loggedIn
@@ -70,12 +72,20 @@ const login = () => {
   publishSync('showLoginPanel')
 }
 
-const count = shallowRef(cartStore.cartCurrentCount)
+const count = shallowRef(0)
+let isDefined = false
 cartStore.$subscribe((mutation, state) => {
-  count.value = state.cartCurrentCount
+  isDefined = false
+  state.cart.forEach(v => {
+    if (v.id === packageId) {
+      count.value = v.inCart
+      isDefined = true
+      console.log(isDefined)
+    }
+  })
+  if (!isDefined) count.value = 0
 })
 
-const packageId = route.params.id
 const increase = () => {
  cartStore.packageIncrease(packageId)
 }
@@ -83,7 +93,6 @@ const decrease = () => {
  cartStore.packageDecrease(packageId)
 }
 const reset = () => {
- cartStore.packageReset()
+ cartStore.packageReset(packageId)
 }
-cartStore.prePackageCount(packageId)
 </script>

@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="px-6 py-12 text-gray-500 text-center leading-2">
-          <template v-if="loggedIn && count === 0">
+          <template v-if="loggedIn && count.length === 0">
             <p>Looks like your cart is empty! Add some items to get started.</p>
           </template>
           <template v-else-if="!loggedIn">
@@ -97,7 +97,7 @@ import useCart from "../store/cart.js";
 const loginStore = useLogin();
 const cartStore = useCart()
 
-const count = shallowRef(cartStore.cartTotalCount)
+const count = shallowRef(cartStore.cart.length)
 
 const sidebarShown = shallowRef(false)
 const currencyShown = shallowRef(false)
@@ -127,7 +127,7 @@ loginStore.$subscribe((mutation, state) => {
   loggedIn.value = state.loggedIn
 })
 cartStore.$subscribe((mutation, state) => {
-  count.value = state.cartTotalCount
+  count.value = state.cart.length
 })
 
 const showLoginPanel = () => {
