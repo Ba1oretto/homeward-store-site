@@ -9,7 +9,8 @@ const useLogin = defineStore('login', {
     state: () => {
         return {
             name: undefined,
-            uuid: undefined
+            uuid: undefined,
+            loggedIn: false
         }
     },
     actions: {
@@ -26,19 +27,20 @@ const useLogin = defineStore('login', {
                 return false
             }
             const player = data.data
-            this.name = player.name
-            this.uuid = player.id
             const {data: res} = await axios.get('/homeward/api/player/login', {
                 params: {
-                    name: this.name,
-                    uuid: this.uuid
+                    name: player.name,
+                    uuid: player.id
                 }
             })
             if (!res) {
                 publishSync('changeLoadingBgCondition', false)
                 return false
             }
-            publishSync('playerLoginSuccess')
+            this.name = player.name
+            this.uuid = player.id
+            this.loggedIn = true
+            publishSync('changeModalCondition')
             publishSync('changeLoadingBgCondition', false)
             publishSync('showToast', {condition: true, message: 'logged in', time: 2500})
         },
@@ -56,6 +58,7 @@ const useLogin = defineStore('login', {
             }
             this.name = result.name
             this.uuid = result.uuid
+            this.loggedIn = true
             publishSync('changeLoadingBgCondition', false)
         }
     }

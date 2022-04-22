@@ -91,11 +91,13 @@ export default {
 import {reactive, shallowRef} from "vue";
 import {publishSync, subscribe} from "pubsub-js";
 import {computed} from "vue";
+import useLogin from "../store/login.js";
+import useCart from "../store/cart.js";
 
-const props = defineProps(['player'])
-const player = props.player
+const loginStore = useLogin();
+const cartStore = useCart()
 
-const count = shallowRef(0)
+const count = shallowRef(cartStore.cartTotalCount)
 
 const sidebarShown = shallowRef(false)
 const currencyShown = shallowRef(false)
@@ -114,8 +116,18 @@ const bodyAlt = computed(() => loggedIn.value ? player.name + '\'s Minecraft Ski
 const bodySrc = computed(() => loggedIn.value ? `https://visage.surgeplay.com/bust/64/${player.uuid}` : 'https://visage.surgeplay.com/bust/64/c06f89064c8a49119c29ea1dbd1aab82')
 const bodyTitle = computed(() => loggedIn.value ? player.name : 'Login to Purchase')
 const loggedIn = shallowRef(false)
-subscribe('userLogin', () => {
-  loggedIn.value = true
+
+const player = reactive({
+  name: '',
+  uuid: ''
+})
+loginStore.$subscribe((mutation, state) => {
+  player.name = state.name
+  player.uuid = state.uuid
+  loggedIn.value = state.loggedIn
+})
+cartStore.$subscribe((mutation, state) => {
+  count.value = state.cartTotalCount
 })
 
 const showLoginPanel = () => {

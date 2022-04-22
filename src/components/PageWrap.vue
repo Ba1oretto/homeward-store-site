@@ -20,7 +20,7 @@
       </transition>
     </router-view>
     <wrap-toast/>
-    <wrap-sidebar :player="player"/>
+    <wrap-sidebar/>
   </div>
 </template>
 
@@ -35,21 +35,7 @@ import WrapToast from "./WrapToast.vue";
 import WrapSidebar from "./WrapSidebar.vue";
 import PromotionsAnnouncement from "./appearance/PromotionsAnnouncement.vue";
 import SpecialBar from "./appearance/SpecialBar.vue";
-import {reactive} from "vue";
-import {publishSync} from "pubsub-js";
-import useLogin from "../store/login.js";
 import BreadCrumbs from "./appearance/BreadCrumbs.vue";
 
 const bgImg = 'https://ghost.ba1oretto.com/content/images/2022/04/Beta_Announcement_Blog.jpg'
-
-const player = reactive({
-  name: '',
-  uuid: ''
-})
-const loginStore = useLogin();
-loginStore.$subscribe((mutation, state) => {
-  player.name = state.name
-  player.uuid = state.uuid
-  publishSync('userLogin')
-})
 </script>

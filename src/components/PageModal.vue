@@ -58,7 +58,7 @@ const showLoginPanel = () => {
 }
 subscribe('showHelpDetail', showHelpDetail)
 subscribe('showLoginPanel', showLoginPanel)
-subscribe('playerLoginSuccess', () => {
+subscribe('changeModalCondition', () => {
   modalCondition.isActive = !modalCondition.isActive
 })
 </script>
