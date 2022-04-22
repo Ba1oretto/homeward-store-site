@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
+import {publishSync} from "pubsub-js";
 
 const home = () => import('./components/pages/HomePage.vue')
 const categories = () => import('./components/pages/CategoryPage.vue')
